@@ -1,9 +1,12 @@
 package br.com.movieapp.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import br.com.movieapp.popular.feature.presentation.MoviePopularScreen
+import br.com.movieapp.popular.feature.presentation.MoviePopularViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -12,7 +15,15 @@ fun NavigationGraph(navController: NavHostController) {
         startDestination = BottomNavItem.MoviePopular.route,
     ) {
         composable(BottomNavItem.MoviePopular.route) {
+            val viewModel: MoviePopularViewModel = hiltViewModel()
+            val uiState = viewModel.uiState
 
+            MoviePopularScreen(
+                uiState = uiState,
+                navigateToDetailMovie = {
+                    TODO("not implement at NavigationGraph")
+                },
+            )
         }
         composable(BottomNavItem.MovieSearch.route) {
 
