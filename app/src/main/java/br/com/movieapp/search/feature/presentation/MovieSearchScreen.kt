@@ -9,6 +9,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.movieapp.R
 import br.com.movieapp.search.feature.presentation.components.SearchContent
 import br.com.movieapp.search.feature.presentation.state.MovieSearchState
+import br.com.movieapp.ui.theme.black
 import br.com.movieapp.ui.theme.white
 
 @Composable
@@ -28,7 +29,8 @@ fun MovieSearchScreen(
                         text = stringResource(id = R.string.search_movies),
                         color = white,
                     )
-                }
+                },
+                backgroundColor = black
             )
         },
         content = { paddingValues ->

@@ -1,8 +1,8 @@
 package br.com.movieapp.search.feature.di
 
 import br.com.movieapp.core.data.remote.MovieService
-import br.com.movieapp.popular.feature.domain.usecase.GetMovieSearchUseCase
-import br.com.movieapp.popular.feature.domain.usecase.GetMovieSearchUseCaseImpl
+import br.com.movieapp.search.feature.domain.usecase.GetMovieSearchUseCase
+import br.com.movieapp.search.feature.domain.usecase.GetMovieSearchUseCaseImpl
 import br.com.movieapp.search.feature.data.repository.MovieSearchRepositoryImpl
 import br.com.movieapp.search.feature.data.source.MovieSearchRemoteDataSourceImpl
 import br.com.movieapp.search.feature.domain.repository.MovieSearchRepository

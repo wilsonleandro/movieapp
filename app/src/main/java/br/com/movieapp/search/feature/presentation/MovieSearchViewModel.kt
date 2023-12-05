@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import br.com.movieapp.popular.feature.domain.usecase.GetMovieSearchUseCase
+import br.com.movieapp.search.feature.domain.usecase.GetMovieSearchUseCase
 import br.com.movieapp.search.feature.presentation.state.MovieSearchState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class MovieSearchViewModel @Inject constructor(
 
     fun fetch(query: String = "") {
         val movies = getMovieSearchUseCase.invoke(
-            params = GetMovieSearchUseCase.Params(query)
+            params = GetMovieSearchUseCase.Params(query = query)
         ).cachedIn(viewModelScope)
         uiState = uiState.copy(movies = movies)
     }

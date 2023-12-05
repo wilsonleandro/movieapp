@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class SearchResponse(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("search_results")
+    @SerializedName("results")
     val searchResults: List<SearchResult>,
     @SerializedName("total_pages")
     val totalPages: Int,
