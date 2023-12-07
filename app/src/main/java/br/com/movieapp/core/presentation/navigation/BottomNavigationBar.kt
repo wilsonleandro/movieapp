@@ -46,6 +46,12 @@ fun BottomNavigationBar(
     }
 }
 
+@Composable
+fun CurrentRoute(navController: NavController): String? {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
+}
+
 @Preview
 @Composable
 fun BottomNavigationBarPreview() {

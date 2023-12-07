@@ -31,7 +31,7 @@ fun NavigationGraph(navController: NavHostController) {
             MoviePopularScreen(
                 uiState = uiState,
                 navigateToDetailMovie = { movieId ->
-                    navController.navigate(BottomNavItem.MovieDetail.passMovieId(movieId))
+                    navController.navigate(DetailScreenNav.DetailScreen.passMovieId(movieId))
                 },
             )
         }
@@ -47,7 +47,7 @@ fun NavigationGraph(navController: NavHostController) {
                 onEvent = onEvent,
                 onFetch = onFetch,
                 navigateToDetailMovie = { movieId ->
-                    navController.navigate(BottomNavItem.MovieDetail.passMovieId(movieId))
+                    navController.navigate(DetailScreenNav.DetailScreen.passMovieId(movieId))
                 },
             )
         }
@@ -59,13 +59,13 @@ fun NavigationGraph(navController: NavHostController) {
             MovieFavoriteScreen(
                 uiState = uiState,
                 navigateToDetailMovie = {
-                    navController.navigate(BottomNavItem.MovieDetail.passMovieId(it))
+                    navController.navigate(DetailScreenNav.DetailScreen.passMovieId(it))
                 },
             )
         }
 
         composable(
-            route = BottomNavItem.MovieDetail.route,
+            route = DetailScreenNav.DetailScreen.route,
             arguments = listOf(navArgument(MOVIE_DETAIL_ARGUMENT_KEY) {
                 type = NavType.IntType
                 defaultValue = 0
@@ -73,17 +73,13 @@ fun NavigationGraph(navController: NavHostController) {
         ) {
             val viewModel: MovieDetailViewModel = hiltViewModel()
             val uiState = viewModel.uiState
-            val getMovieDetail = viewModel::getMovieDetail
             val onAddFavorite = viewModel::onAddFavorite
-            val checkedFavorite = viewModel::checkedFavorite
 
             MovieDetailScreen(
-                id = it.arguments?.getInt(MOVIE_DETAIL_ARGUMENT_KEY),
                 uiState = uiState,
-                getMovieDetail = getMovieDetail,
                 onAddFavorite = onAddFavorite,
-                checkedFavorite = checkedFavorite,
             )
         }
     }
+
 }
