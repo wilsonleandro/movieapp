@@ -15,6 +15,7 @@ import br.com.movieapp.detail.feature.presentation.state.MovieDetailState
 fun MovieDetailScreen(
     uiState: MovieDetailState,
     onAddFavorite: (Movie) -> Unit,
+    navigateToMovieDetail: (Int) -> Unit,
 ) {
     val pagingMovieSimilar = uiState.results.collectAsLazyPagingItems()
 
@@ -31,6 +32,7 @@ fun MovieDetailScreen(
                     isError = uiState.error,
                     iconColor = uiState.iconColor,
                     onAddFavorite = { onAddFavorite(it) },
+                    navigateToMovieDetail = { movieId -> navigateToMovieDetail(movieId) }
                 )
             }
         }

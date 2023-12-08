@@ -78,6 +78,9 @@ fun NavigationGraph(navController: NavHostController) {
             MovieDetailScreen(
                 uiState = uiState,
                 onAddFavorite = onAddFavorite,
+                navigateToMovieDetail = {
+                    navController.navigate(DetailScreenNav.DetailScreen.passMovieId(it))
+                }
             )
         }
     }

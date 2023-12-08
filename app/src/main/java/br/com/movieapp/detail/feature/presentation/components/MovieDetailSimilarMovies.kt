@@ -19,6 +19,7 @@ import br.com.movieapp.popular.feature.presentation.components.MovieItem
 fun MovieDetailSimilarMovies(
     pagingMoviesSimilar: LazyPagingItems<Movie>,
     modifier: Modifier,
+    onClick: (Int) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -33,7 +34,7 @@ fun MovieDetailSimilarMovies(
                     voteAverage = it.voteAverage,
                     imageUrl = it.imageUrl,
                     id = it.id,
-                    onClick = {},
+                    onClick = { movieId -> onClick(movieId) },
                 )
             }
         }
