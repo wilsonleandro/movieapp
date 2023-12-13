@@ -17,10 +17,16 @@ interface IsMovieFavoriteUseCase {
 class IsMovieFavoriteUseCaseImpl @Inject constructor(
     private val movieFavoriteRepository: MovieFavoriteRepository
 ) : IsMovieFavoriteUseCase {
+
     override suspend fun invoke(params: IsMovieFavoriteUseCase.Params): Flow<ResultData<Boolean>> {
         return flow {
-            val isFavorite = movieFavoriteRepository.isFavorite(params.movieId)
-            emit(ResultData.Success(isFavorite))
+            try {
+                val isFavorite = movieFavoriteRepository.isFavorite(params.movieId)
+                emit(ResultData.Success(isFavorite))
+            } catch (e: Exception) {
+                emit(ResultData.Failure(e))
+            }
         }.flowOn(Dispatchers.IO)
     }
+
 }

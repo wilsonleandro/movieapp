@@ -3,10 +3,7 @@ package br.com.movieapp.core.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import br.com.movieapp.core.domain.model.MovieSearch
-import br.com.movieapp.search.feature.data.mapper.toMovieSearch
 import br.com.movieapp.search.feature.domain.source.MovieSearchRemoteDataSource
-import retrofit2.HttpException
-import java.io.IOException
 
 class MovieSearchPagingSource(
     private val query: String,
@@ -23,19 +20,16 @@ class MovieSearchPagingSource(
         return try {
             val pageNumber = params.key ?: 1
             val response = remoteDataSource.getSearchMovies(pageNumber, query)
-            val movies = response.searchResults
+            val movies = response.movies
+            val totalPages = response.totalPages
 
             LoadResult.Page(
-                data = movies.toMovieSearch(),
+                data = movies,
                 prevKey = if (pageNumber == 1) null else pageNumber - 1,
-                nextKey = if (movies.isEmpty()) null else pageNumber + 1,
+                nextKey = if (pageNumber == totalPages) null else pageNumber + 1,
             )
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return LoadResult.Error(e)
-        } catch (e: HttpException) {
-            e.printStackTrace()
-            return LoadResult.Error(e)
+        } catch (e: Exception) {
+            LoadResult.Error(e)
         }
     }
 

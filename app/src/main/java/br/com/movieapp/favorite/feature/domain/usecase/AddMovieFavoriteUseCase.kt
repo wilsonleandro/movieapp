@@ -11,16 +11,23 @@ import javax.inject.Inject
 
 interface AddMovieFavoriteUseCase {
     data class Params(val movie: Movie)
+
     suspend fun invoke(params: Params): Flow<ResultData<Unit>>
 }
 
 class AddMovieFavoriteUseCaseImpl @Inject constructor(
     private val movieFavoriteRepository: MovieFavoriteRepository
-): AddMovieFavoriteUseCase {
+) : AddMovieFavoriteUseCase {
+
     override suspend fun invoke(params: AddMovieFavoriteUseCase.Params): Flow<ResultData<Unit>> {
         return flow {
-            val insert = movieFavoriteRepository.insert(params.movie)
-            emit(ResultData.Success(insert))
+            try {
+                val insert = movieFavoriteRepository.insert(params.movie)
+                emit(ResultData.Success(insert))
+            } catch (e: Exception) {
+                emit(ResultData.Failure(e))
+            }
         }.flowOn(Dispatchers.IO)
     }
+
 }

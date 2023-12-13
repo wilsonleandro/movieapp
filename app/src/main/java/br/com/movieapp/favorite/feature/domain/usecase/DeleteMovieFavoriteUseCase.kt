@@ -11,16 +11,21 @@ import javax.inject.Inject
 
 interface DeleteMovieFavoriteUseCase {
     data class Params(val movie: Movie)
+
     suspend fun invoke(params: Params): Flow<ResultData<Unit>>
 }
 
 class DeleteMovieFavoriteUseCaseImpl @Inject constructor(
     private val movieFavoriteRepository: MovieFavoriteRepository
-): DeleteMovieFavoriteUseCase {
+) : DeleteMovieFavoriteUseCase {
     override suspend fun invoke(params: DeleteMovieFavoriteUseCase.Params): Flow<ResultData<Unit>> {
         return flow {
-            val insert = movieFavoriteRepository.delete(params.movie)
-            emit(ResultData.Success(insert))
+            try {
+                val insert = movieFavoriteRepository.delete(params.movie)
+                emit(ResultData.Success(insert))
+            } catch (e: Exception) {
+                emit(ResultData.Failure(e))
+            }
         }.flowOn(Dispatchers.IO)
     }
 }
